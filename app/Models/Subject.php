@@ -9,6 +9,10 @@ class Subject extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql';
+
+    protected $table = 'subjects';
+
     protected $fillable = [
         'name', 'difficulty'
     ];

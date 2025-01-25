@@ -9,6 +9,10 @@ class Teacher extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql';
+
+    protected $table = 'teachers';
+
     protected $fillable = [
         'fullname', 'phone', 'email', 'address', 'date_of_birth', 'subject_id'
     ];

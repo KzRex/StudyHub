@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Service\TeacherServiceInterface;
+use App\Contracts\Service\StudentServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+class StudentController extends Controller
 {
     public function __construct(
-        private readonly TeacherServiceInterface $teacherService
+        private readonly StudentServiceInterface $studentService
     ){    
     }
 
     public function getAll(): JsonResponse
     {
-        $teachers = $this->teacherService->getAll();
-        if (empty($teachers)) {
-            return response()->json(['message' => 'Teachers not found'], JsonResponse::HTTP_NOT_FOUND);
+        $students = $this->studentService->getAll();
+        if (empty($students)) {
+            return response()->json(['message' => 'Students not found'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['data' => $teachers], JsonResponse::HTTP_OK);
+        return response()->json(['data' => $students], JsonResponse::HTTP_OK);
     }
 
     public function store(Request $request): JsonResponse
@@ -34,22 +34,22 @@ class TeacherController extends Controller
             'subject_id' => 'required|exists:subjects,id',
         ]);
 
-        $storeData = $this->teacherService->store($validated);
+        $storeData = $this->studentService->store($validated);
         if (empty($storeData)) {
-            return response()->json(['message' => 'Failed to store teacher data'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => 'Failed to store student data'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(['data' => 'Store teacher data successfully'], JsonResponse::HTTP_OK);
+        return response()->json(['data' => 'Store student data successfully'], JsonResponse::HTTP_OK);
     }
 
     public function show(string $id): JsonResponse
     {
-        $teacher = $this->teacherService->getById($id);
-        if (empty($teacher)) {
-            return response()->json(['message' => 'Failed to get teacher data'], JsonResponse::HTTP_NOT_FOUND);
+        $student = $this->studentService->getById($id);
+        if (empty($student)) {
+            return response()->json(['message' => 'Failed to get student data'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['data' => $teacher]. JsonResponse::HTTP_OK);
+        return response()->json(['data' => $student]. JsonResponse::HTTP_OK);
     }
 
     public function update(string $id, Request $request): JsonResponse
@@ -63,22 +63,22 @@ class TeacherController extends Controller
             'subject_id' => 'required_without_all:fullname,email,phone,address,date_of_birth|exists:subjects,id',
         ]);
 
-        $updateData = $this->teacherService->update($id, $validated);
+        $updateData = $this->studentService->update($id, $validated);
         if (!$updateData) {
-            return response()->json(['message' => 'Failed to update data'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => 'Failed to update student data'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(['data' => 'Update data successfully'], JsonResponse::HTTP_OK);
+        return response()->json(['data' => 'Update student data successfully'], JsonResponse::HTTP_OK);
     }
 
     public function delete(string $id): JsonResponse
     {
-        $teacher = $this->teacherService->getById($id);
-        if (empty($teacher)) {
+        $student = $this->studentService->getById($id);
+        if (empty($student)) {
             return response()->json(['message' => 'Failed to get teacher data'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        $deleteData = $this->teacherService->delete($teacher->id);
+        $deleteData = $this->studentService->delete($student->id);
         if (!$deleteData) {
             return response()->json(['message' => 'Failed to delete'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

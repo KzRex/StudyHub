@@ -2,16 +2,16 @@
 
 namespace App\Contracts\Repo;
 
-use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Support\Collection;
 
-interface TeacherRepoInterface
+interface StudentRepoInterface
 {
-    public function getById(int $id): Teacher;
+    public function getById(int $id): Student;
 
     public function getAll(): Collection;
 
-    public function store(array $data): Teacher;
+    public function store(array $data): Student;
 
     public function update(int $id, array $data): bool;
 

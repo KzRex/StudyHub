@@ -9,6 +9,10 @@ class Classroom extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql';
+
+    protected $table = 'classes';
+
     protected $fillable = [
         'teacher_id', 'subject_id', 'class_name', 'start_date', 'end_date'
     ];

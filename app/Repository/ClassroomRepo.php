@@ -2,18 +2,18 @@
 
 namespace App\Repository;
 
-use App\Contracts\Repo\TeacherRepoInterface;
-use App\Models\Teacher;
+use App\Contracts\Repo\ClassroomRepoInterface;
+use App\Models\Classroom;
 use Illuminate\Support\Collection;
 
-class TeacherRepo implements TeacherRepoInterface
+class ClassroomRepo implements ClassroomRepoInterface
 {
     public function __construct(
-        private readonly Teacher $model
+        private readonly Classroom $model
     ){
     }
 
-    public function getById(int $id): Teacher
+    public function getById(int $id): Classroom
     {
         return $this->model
             ->where('id', $id)
@@ -26,7 +26,7 @@ class TeacherRepo implements TeacherRepoInterface
             ->get();
     }
 
-    public function store(array $data): Teacher
+    public function store(array $data): Classroom
     {
         return $this->model
             ->create($data);
