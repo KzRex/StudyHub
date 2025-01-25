@@ -13,7 +13,7 @@ class ClassroomController extends Controller
     ){    
     }
 
-    public function getAll(): JsonResponse
+    public function index(): JsonResponse
     {
         $classes = $this->classroomService->getAll();
         if (empty($classes)) {
@@ -23,7 +23,7 @@ class ClassroomController extends Controller
         return response()->json(['data' => $classes], JsonResponse::HTTP_OK);
     }
 
-    public function store(Request $request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'teacher_id' => 'required|integer',

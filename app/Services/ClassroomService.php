@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use App\Contracts\Repo\ClassroomRepoInterface;
 use App\Contracts\Service\ClassroomServiceInterface;
 use App\Models\Classroom;

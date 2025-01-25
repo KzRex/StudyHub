@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use App\Contracts\Repo\TeacherRepoInterface;
 use App\Contracts\Service\TeacherServiceInterface;
 use App\Models\Teacher;

@@ -13,7 +13,7 @@ class TeacherController extends Controller
     ){    
     }
 
-    public function getAll(): JsonResponse
+    public function index(): JsonResponse
     {
         $teachers = $this->teacherService->getAll();
         if (empty($teachers)) {
@@ -23,7 +23,7 @@ class TeacherController extends Controller
         return response()->json(['data' => $teachers], JsonResponse::HTTP_OK);
     }
 
-    public function store(Request $request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'fullname' => 'required|string|max:50',

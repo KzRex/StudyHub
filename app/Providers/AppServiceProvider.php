@@ -11,10 +11,10 @@ use App\Contracts\Service\TeacherServiceInterface;
 use App\Repository\ClassroomRepo;
 use App\Repository\StudentRepo;
 use App\Repository\TeacherRepo;
-use ClassroomService;
+use App\Services\ClassroomService;
+use App\Services\StudentService;
+use App\Services\TeacherService;
 use Illuminate\Support\ServiceProvider;
-use StudentService;
-use TeacherService;
 
 class AppServiceProvider extends ServiceProvider
 {
