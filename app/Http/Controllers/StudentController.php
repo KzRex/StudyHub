@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Service\StudentServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StudentController extends Controller
 {
@@ -13,14 +14,16 @@ class StudentController extends Controller
     ){    
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
         $students = $this->studentService->getAll();
         if (empty($students)) {
             return response()->json(['message' => 'Students not found'], JsonResponse::HTTP_NOT_FOUND);
         }
-
-        return response()->json(['data' => $students], JsonResponse::HTTP_OK);
+        
+        return Inertia::render('Students/Index', [
+            'students' => $students
+        ]);
     }
 
     public function create(Request $request): JsonResponse
