@@ -1,4 +1,3 @@
-// Index.jsx
 import React, { useState } from "react";
 import StudentList from "./StudentList";
 import CreateStudentModal from "./CreateStudentModal";
@@ -11,6 +10,7 @@ export default function Index({ students }) {
     const handleStudentCreated = (newStudent) => {
         setStudentList([...studentList, newStudent]);
         setIsModalOpen(false);
+        window.location.reload();
     };
 
     const handleDelete = (id) => {

@@ -37,13 +37,13 @@ class AppServiceProvider extends ServiceProvider
     {
         //Repos
         $this->app->bind(TeacherRepoInterface::class, TeacherRepo::class);
-        $this->app->bind(StudentRepoInterface::class, StudentRepo::class);
+        // $this->app->bind(StudentRepoInterface::class, StudentRepo::class);
         $this->app->bind(ClassroomRepoInterface::class, ClassroomRepo::class);
         $this->app->bind(SubjectRepoInterface::class, SubjectRepo::class);
 
         //Services
         $this->app->bind(TeacherServiceInterface::class, TeacherService::class);
-        $this->app->bind(StudentServiceInterface::class, StudentService::class);
+        // $this->app->bind(StudentServiceInterface::class, StudentService::class);
         $this->app->bind(ClassroomServiceInterface::class, ClassroomService::class);
         $this->app->bind(SubjectServiceInterface::class, SubjectService::class);
     }

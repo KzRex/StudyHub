@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('fullname', 50);
@@ -21,6 +23,8 @@ return new class extends Migration
             $table->foreignId('class_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

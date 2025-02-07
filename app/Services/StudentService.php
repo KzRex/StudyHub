@@ -14,7 +14,7 @@ class StudentService implements StudentServiceInterface
     ){
     }
 
-    public function getById(int $id): Student
+    public function getById(int $id): ?Student
     {
         return $this->studentRepo->getById($id);
     }
@@ -24,7 +24,7 @@ class StudentService implements StudentServiceInterface
         return $this->studentRepo->getAll();
     }
 
-    public function store(array $data): Student
+    public function store(array $data): ?Student
     {
         return $this->studentRepo->store($data);
     }

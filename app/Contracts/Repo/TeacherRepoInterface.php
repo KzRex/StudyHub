@@ -7,11 +7,11 @@ use Illuminate\Support\Collection;
 
 interface TeacherRepoInterface
 {
-    public function getById(int $id): Teacher;
+    public function getById(int $id): ?Teacher;
 
     public function getAll(): Collection;
 
-    public function store(array $data): Teacher;
+    public function store(array $data): ?Teacher;
 
     public function update(int $id, array $data): bool;
 

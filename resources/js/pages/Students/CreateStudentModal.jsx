@@ -18,26 +18,18 @@ export default function CreateStudentModal({ onClose, onStudentCreated }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    
         Inertia.post("/students/create", formData, {
-            onSuccess: (page) => {
-                alert("✅ Student created successfully!");
-                onStudentCreated(page.props.newStudent);
-                setFormData({
-                    fullname: "",
-                    email: "",
-                    phone: "",
-                    address: "",
-                    date_of_birth: "",
-                    class_id: "",
-                });
-            },
+                onSuccess: () => {
+                    alert("✅ Student created successfully!"); // Show success alert
+                    onClose(); // Close modal
+                },
             onError: (errors) => {
                 console.error(errors);
                 alert("❌ Failed to create student.");
             },
         });
-    };
+    };    
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">

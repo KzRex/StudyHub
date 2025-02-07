@@ -26,7 +26,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(Request $request)
     {
         $validated = $request->validate([
             'fullname' => 'required|string|max:50',
@@ -34,15 +34,21 @@ class StudentController extends Controller
             'phone' => 'required|max:20',
             'address' => 'required|string|max:200',
             'date_of_birth' => 'required|date',
-            'subject_id' => 'required|exists:subjects,id',
+            'class_id' => 'required|exists:classes,id',
         ]);
 
         $storeData = $this->studentService->store($validated);
         if (empty($storeData)) {
-            return response()->json(['message' => 'Failed to store student data'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with([
+                'error' => 'Failed to store student data',
+            ]);
         }
 
-        return response()->json(['data' => 'Store student data successfully'], JsonResponse::HTTP_OK);
+        // return response()->json(['newStudent' => $storeData], JsonResponse::HTTP_OK);
+        return Inertia::render('Student/Index', [
+            'message' => '✅ Student created successfully!',
+            'newStudent' => $storeData,
+        ]);
     }
 
     public function show(string $id): JsonResponse
