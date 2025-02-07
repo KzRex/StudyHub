@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classrooms', function (Blueprint $table) {
+        Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('subject_id')->nullable()->constrained()->onDelete('set null');

@@ -3,17 +3,17 @@
 namespace App\Repository;
 
 use App\Contracts\Repo\ClassroomRepoInterface;
-use App\Models\Classroom;
+use App\Models\Classes;
 use Illuminate\Support\Collection;
 
 class ClassroomRepo implements ClassroomRepoInterface
 {
     public function __construct(
-        private readonly Classroom $model
+        private readonly Classes $model
     ){
     }
 
-    public function getById(int $id): Classroom
+    public function getById(int $id): Classes
     {
         return $this->model
             ->where('id', $id)
@@ -26,7 +26,7 @@ class ClassroomRepo implements ClassroomRepoInterface
             ->get();
     }
 
-    public function store(array $data): Classroom
+    public function store(array $data): Classes
     {
         return $this->model
             ->create($data);

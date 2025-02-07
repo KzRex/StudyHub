@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Contracts\Repo\ClassroomRepoInterface;
 use App\Contracts\Service\ClassroomServiceInterface;
-use App\Models\Classroom;
+use App\Models\Classes;
 use Illuminate\Support\Collection;
 
 class ClassroomService implements ClassroomServiceInterface
@@ -14,7 +14,7 @@ class ClassroomService implements ClassroomServiceInterface
     ){
     }
 
-    public function getById(int $id): Classroom
+    public function getById(int $id): Classes
     {
         return $this->classroomRepo->getById($id);
     }
@@ -24,7 +24,7 @@ class ClassroomService implements ClassroomServiceInterface
         return $this->classroomRepo->getAll();
     }
 
-    public function store(array $data): Classroom
+    public function store(array $data): Classes
     {
         return $this->classroomRepo->store($data);
     }
