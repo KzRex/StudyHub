@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 
-export default function CreateStudentModal({ onClose, onStudentCreated }) {
+export default function EditStudentModal({ student, onClose, onStudentUpdated }) {
     const [formData, setFormData] = useState({
-        fullname: "",
-        email: "",
-        phone: "",
-        address: "",
-        date_of_birth: "",
-        class_id: "",
+        fullname: student.fullname,
+        email: student.email,
+        phone: student.phone,
+        address: student.address,
+        date_of_birth: student.date_of_birth,
+        class_id: student.class_id,
     });
 
     const handleChange = (e) => {
@@ -18,23 +18,24 @@ export default function CreateStudentModal({ onClose, onStudentCreated }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-        Inertia.post("/students/create", formData, {
-                onSuccess: () => {
-                    alert("✅ Student created successfully!");
-                    onClose();
-                },
+
+        Inertia.put(`/students/${student.id}/update`, formData, {
+            onSuccess: (page) => {
+                alert("✅ Student updated successfully!");
+                onStudentUpdated(page.props.updatedStudent);
+                onClose();
+            },
             onError: (errors) => {
                 console.error(errors);
-                alert("❌ Failed to create student.");
+                alert("❌ Failed to update student.");
             },
         });
-    };    
+    };
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-6 rounded shadow-lg w-96">
-                <h2 className="text-xl font-bold mb-4">Create Student</h2>
+                <h2 className="text-xl font-bold mb-4">Edit Student</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium">Full Name</label>
@@ -107,7 +108,7 @@ export default function CreateStudentModal({ onClose, onStudentCreated }) {
                             type="submit"
                             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                         >
-                            Submit
+                            Update
                         </button>
                         <button
                             type="button"

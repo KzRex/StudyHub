@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
+import EditStudentModal from "./EditStudentModal";
 
-export default function StudentList({ students, onEdit, onDelete }) {
+export default function StudentList({ students, onStudentUpdated }) {
+    const [selectedStudent, setSelectedStudent] = useState(null);
+
+    const handleDelete = (id) => {
+        if (!confirm("Are you sure you want to delete this student?")) return;
+
+        Inertia.delete(`/students/${id}/delete`, {
+            onSuccess: () => {
+                alert("✅ Student deleted successfully!");
+                onStudentUpdated();
+            },
+            onError: (errors) => {
+                console.error(errors);
+                alert("❌ Failed to delete student.");
+            },
+        });
+    };
+
     return (
         <div className="mt-6">
             <table className="w-full border-collapse border border-gray-300">
@@ -12,7 +31,7 @@ export default function StudentList({ students, onEdit, onDelete }) {
                         <th className="border border-gray-300 px-4 py-2">Phone</th>
                         <th className="border border-gray-300 px-4 py-2">Address</th>
                         <th className="border border-gray-300 px-4 py-2">Date of Birth</th>
-                        <th className="border border-gray-300 px-4 py-2">Class ID</th>
+                        <th className="border border-gray-300 px-4 py-2">Class</th>
                         <th className="border border-gray-300 px-4 py-2">Actions</th>
                     </tr>
                 </thead>
@@ -29,13 +48,13 @@ export default function StudentList({ students, onEdit, onDelete }) {
                                 <td className="border border-gray-300 px-4 py-2">{student.class_id}</td>
                                 <td className="border border-gray-300 px-4 py-2 space-x-2">
                                     <button 
-                                        onClick={() => onEdit(student)}
+                                        onClick={() => setSelectedStudent(student)}
                                         className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                                     >
                                         Update
                                     </button>
                                     <button 
-                                        onClick={() => onDelete(student.id)}
+                                        onClick={() => handleDelete(student.id)}
                                         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                                     >
                                         Delete
@@ -52,6 +71,14 @@ export default function StudentList({ students, onEdit, onDelete }) {
                     )}
                 </tbody>
             </table>
+
+            {selectedStudent && (
+                <EditStudentModal 
+                    student={selectedStudent} 
+                    onClose={() => setSelectedStudent(null)} 
+                    onStudentUpdated={onStudentUpdated}
+                />
+            )}
         </div>
     );
 }
