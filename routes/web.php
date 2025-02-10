@@ -1,8 +1,14 @@
 <?php
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
+use Inertia\Inertia;
+
+Route::get('/', function () {
+    return Inertia::render('Landing');
+})->name('landing');
 
 Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
 Route::post('/teachers/create', [TeacherController::class, 'create'])->name('teachers.create');
@@ -14,3 +20,5 @@ Route::get('/students', [StudentController::class, 'index'])->name('students.ind
 Route::post('/students/create', [StudentController::class, 'create'])->name('teachers.create');
 Route::put('/students/{id}/update', [StudentController::class, 'update'])->name('teachers.update');
 Route::delete('/students/{id}/delete', [StudentController::class, 'delete'])->name('teachers.delete');
+
+Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.index');

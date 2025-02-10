@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Repo\StudentRepoInterface;
 use App\Contracts\Service\StudentServiceInterface;
 use App\Models\Student;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class StudentService implements StudentServiceInterface
@@ -19,7 +20,7 @@ class StudentService implements StudentServiceInterface
         return $this->studentRepo->getById($id);
     }
 
-    public function getAll(): Collection
+    public function getAll(): LengthAwarePaginator
     {
         return $this->studentRepo->getAll();
     }

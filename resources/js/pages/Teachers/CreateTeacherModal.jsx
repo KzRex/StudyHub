@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import { usePage } from "@inertiajs/react";
 
 export default function CreateTeacherModal({ onClose, onTeacherCreated }) {
+    const { subjects } = usePage().props; // Get subjects from Laravel
+
     const [formData, setFormData] = useState({
         fullname: "",
         email: "",
@@ -100,15 +103,25 @@ export default function CreateTeacherModal({ onClose, onTeacherCreated }) {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium">Subject ID</label>
-                        <input
-                            type="text"
+                        <label className="block text-sm font-medium">Subject</label>
+                        <select
                             name="subject_id"
                             value={formData.subject_id}
                             onChange={handleChange}
                             className="w-full px-3 py-2 border rounded"
                             required
-                        />
+                        >
+                            <option value="">Select a subject</option>
+                            {subjects && subjects.length > 0 ? (
+                                subjects.map((subject) => (
+                                    <option key={subject.id} value={subject.id}>
+                                        {subject.name}
+                                    </option>
+                                ))
+                            ) : (
+                                <option disabled>No subjects available</option>
+                            )}
+                        </select>
                     </div>
                     <div className="flex justify-end space-x-2">
                         <button

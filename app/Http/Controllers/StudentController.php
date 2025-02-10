@@ -44,7 +44,6 @@ class StudentController extends Controller
             ]);
         }
 
-        // return response()->json(['newStudent' => $storeData], JsonResponse::HTTP_OK);
         return Inertia::render('Student/Index', [
             'message' => '✅ Student created successfully!',
             'newStudent' => $storeData,

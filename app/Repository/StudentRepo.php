@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentRepo implements StudentRepoInterface
 {
@@ -37,10 +38,10 @@ class StudentRepo implements StudentRepoInterface
      *
      * @return Collection
      */
-    public function getAll(): Collection
+    public function getAll(): LengthAwarePaginator
     {
         try {
-            return $this->model->get();
+            return $this->model->paginate(10);
         } catch (Exception $th) {
             Log::debug($th->getMessage());
             return collect();

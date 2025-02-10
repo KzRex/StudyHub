@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Repo\TeacherRepoInterface;
 use App\Contracts\Service\TeacherServiceInterface;
 use App\Models\Teacher;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class TeacherService implements TeacherServiceInterface
@@ -19,7 +20,7 @@ class TeacherService implements TeacherServiceInterface
         return $this->teacherRepo->getById($id);
     }
 
-    public function getAll(): Collection
+    public function getAll(): LengthAwarePaginator
     {
         return $this->teacherRepo->getAll();
     }

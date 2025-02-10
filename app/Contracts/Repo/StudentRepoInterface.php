@@ -3,13 +3,14 @@
 namespace App\Contracts\Repo;
 
 use App\Models\Student;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface StudentRepoInterface
 {
     public function getById(int $id): ?Student;
 
-    public function getAll(): Collection;
+    public function getAll(): LengthAwarePaginator;
 
     public function store(array $data): ?Student;
 

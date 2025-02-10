@@ -3,13 +3,14 @@
 namespace App\Contracts\Service;
 
 use App\Models\Teacher;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface TeacherServiceInterface
 {
     public function getById(int $id): Teacher;
 
-    public function getAll(): Collection;
+    public function getAll(): LengthAwarePaginator;
 
     public function store(array $data): Teacher;
 
